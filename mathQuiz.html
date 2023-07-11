@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // Initializing some variables
+
+    var score = 0;
+    var gameFlag = 10;
+    var totalScore=0,hintCount=0;
+    var correctFlag = true, num1, num2, operator, correctAnswer, userAnswer, question;
+    while (gameFlag > 0) {
+
+      num1 = Math.round(Math.random() * 10); // Generate a random number between 1 and 10
+      num2 = Math.round(Math.random() * 10); // Generate a random number between 1 and 10
+      operator = Math.round(Math.random(0, 2)); // Generate a random number between 0 and 2 for operator selection
+
+      switch (operator) {
+        case 0: // Addition
+          question = num1 + " + " + num2;
+          correctAnswer = num1 + num2;
+          break;
+        case 1: // Subtraction
+          if(num1<num2){
+            [num1,num2]=[num2,num1]
+          }
+          question = num1 + " - " + num2;
+          correctAnswer = num1 - num2;
+          
+          break;
+        case 2: // Multiplication
+          question = num1 + " * " + num2;
+          correctAnswer = num1 * num2;
+          break;
+      }
+
+      userAnswer = prompt(question)
+      console.log(correctAnswer)
+
+      //    validate User Answer
+      if (userAnswer === null || userAnswer.trim() === "" || isNaN(userAnswer)) {
+        alert("Invalid Input"); // Invalid input
+      }
+      else {
+        // Valid input
+
+        if (userAnswer == correctAnswer) {
+          alert("correct")
+          score++
+          gameFlag--
+          correctFlag = false
+        }
+        else {
+          if (userAnswer > correctAnswer) {
+            userAnswer = prompt(`Incorrect Answer!! You have guessed bigger number, make it little smaller. ${question} Enter your Answer`)
+            hintCount++
+          }
+          else if (userAnswer < correctAnswer) {
+            userAnswer = prompt(`Incorrect Answer!! You have guessed smaller number, make it little bigger. ${question} Enter your Answer`)
+            hintCount++
+          }
+          // else{
+          //   alert("Correct answer")
+          // }
+        }
+      }
+    }
+    if(gameFlag===0){
+      totalScore=score-hintCount
+      alert(`Your Final Score is ${totalScore}.`)
+    }
+    // var game=prompt("do you want to continue?")
+    //             if(game=="y"||game=="Y"){
+    //                 flag=true;
+    //             }
+    //             else if(game=="n"||game=="N"){
+    //                 flag=false;
+    //                 alert("Your Final Score is: "+score)
+    //             }
+    //             else{
+    //                 alert("Invalid input");
+    //             }
+
+
+  </script>
+</body>
+
+</html>
